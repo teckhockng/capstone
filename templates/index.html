@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="refresh" content="5" > -->
+    <title>Live NBA game win probability predictor</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <body>
+    {% for time,id,visitor_score,home_score,visitor,home in game_data %}
+    <div class="card text-center">
+      <div class="card-header">
+        <h3 class="card-title" id="game_{{ id }}">{{ time }}</h3>
+      </div>
+      <div class="card-body">
+        <h4 class="card-text">
+          <img src="static/images/{{ visitor }}_logo.svg" alt="Team Logo" height="80" width="80">
+            VS.
+          <img src="static/images/{{ home }}_logo.svg" alt="Team Logo" height="80" width="80">
+        </h4>
+        <h4 class="card-text" id="game_score_{{ id }}">
+          Score: {{ visitor_score }} - {{ home_score }}
+        </h4>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+    </div>
+    {% endfor %}
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var data = {{ json_data|safe }};
+      console.log(data);
+    </script>
+
+  </body>
+</html>
