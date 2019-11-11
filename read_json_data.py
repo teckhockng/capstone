@@ -6,8 +6,7 @@ import json
 class nba_data():
 
     def __init__(self):
-        self.get_json
-        self.json = get_json()
+        pass
 
     def get_json():
         team_names = ['ATL','BOS','BKN','CHA','CHI','CLE','DAL','DEN','DET','GSW','HOU','IND','LAC','LAL',

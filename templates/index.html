@@ -9,31 +9,30 @@
   </head>
 
   <body>
-    {% for time,id,visitor_score,home_score,visitor,home in game_data %}
-    <div class="card text-center">
-      <div class="card-header">
-        <h3 class="card-title" id="game_{{ id }}">{{ time }}</h3>
+    <div class="row">
+      {% for time,id,time_remaining,visitor_score,home_score,visitor,home in game_data %}
+      <div class="card text-center col-sm-6" onclick="location.href = '/results/{{ id }}';" style="padding: 10px;">
+        <div class="card-header">
+          <h3 class="card-title" id="game_status_{{ id }}">Game Status: {{ time }}</h3>
+          <h3 class="card-title" id="game_time_{{ id }}">Time Remaining: {{ time_remaining }}</h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-text">
+            <img src="{{url_for('static', filename='images/'+ visitor|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
+              VS.
+            <img src="{{url_for('static', filename='images/'+ home|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
+          </h4>
+          <h4 class="card-text" id="game_score_{{ id }}">
+            Score: {{ visitor_score }} - {{ home_score }}
+          </h4>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
       </div>
-      <div class="card-body">
-        <h4 class="card-text">
-          <img src="static/images/{{ visitor }}_logo.svg" alt="Team Logo" height="80" width="80">
-            VS.
-          <img src="static/images/{{ home }}_logo.svg" alt="Team Logo" height="80" width="80">
-        </h4>
-        <h4 class="card-text" id="game_score_{{ id }}">
-          Score: {{ visitor_score }} - {{ home_score }}
-        </h4>
-        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      var data = {{ json_data|safe }};
-      console.log(data);
-    </script>
-
+    <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
   </body>
 </html>
