@@ -9,31 +9,107 @@
   </head>
 
   <body>
-    <div class="card text-center">
-      <div class="card-header">
-        <h3 class="card-title" id="game_status">Game Status: {{ game_status }}</h3>
-        <h3 class="card-title" id="game_time">Time Remaining: {{ time_remaining }}</h3>
+    <nav class="navbar navbar-expand-sm bg-light">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
+          {% for time,id,time_remaining,visitor_score,home_score,visitor,home in game_data %}
+          <li class="nav-item"><a class="nav-link" href="/results/{{ id }}">{{ visitor}} VS {{ home }}</a></li>
+          {% endfor %}
+        </ul>
+    </nav>
+    <div class="row">
+      <div class="card col-sm-4" style="padding: 15px; padding-left:30px;">
+        <div class="card-header">
+          <h3 class="card-title" id="game_status">Game Status: {{ game_status }}</h3>
+          <h3 class="card-title" id="game_time">Time Remaining: {{ time_remaining }}</h3>
+        </div>
+        <div class="card-body">
+          <h4 class="card-text">
+            <img src="{{url_for('static', filename='images/'+ visitor|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
+              VS.
+            <img src="{{url_for('static', filename='images/'+ home|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
+          </h4>
+          <h4 class="card-text" id="game_score">
+            Score: {{ visitor_score }} - {{ home_score }}
+          </h4>
+          <h4 class="card-text" id="home_win_percentage">
+            {{home}} Win Percentage:
+          </h4>
+          <h4 class="card-text" id="visitor_win_percentage">
+            {{visitor}} Win Percentage:
+          </h4>
+        </div>
       </div>
-      <div class="card-body">
-        <h4 class="card-text">
-          <img src="{{url_for('static', filename='images/'+ visitor|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
-            VS.
-          <img src="{{url_for('static', filename='images/'+ home|string + '_logo.svg')}}" alt="Team Logo" height="80" width="80">
-        </h4>
-        <h4 class="card-text" id="game_score">
-          Score: {{ visitor_score }} - {{ home_score }}
-        </h4>
-        <h4 class="card-text" id="home_win_percentage">
-          {{home}} Win Percentage:
-        </h4>
-        <h4 class="card-text" id="visitor_win_percentage">
-          {{visitor}} Win Percentage:
-        </h4>
-      </div>
+    <div id="chart_div" style="padding:15px;"></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script> -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">;
+      // for plotting graph
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      var tableData = [[0, 50, 50]]
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Minutes Played');
+        data.addColumn('number', '{{ home }} Win Probability');
+        data.addColumn('number', '{{ visitor }} Win Probability');
+        data.addRows(
+          tableData
+        );
+        var options = {
+          chart: {
+            title: '{{ home }} vs {{ visitor }}',
+            subtitle: 'Win Probability'
+          },
+          width: 900,
+          height: 500,
+          hAxis: {
+            title: 'Minutes Played',
+            ticks: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75]
+          },
+          vAxis: {
+            title: 'Win Probability',
+            ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+          },
+          colors: ['#a52714', '#097138']
+        };
+        var chart = new google.charts.Line(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        var url = '/get_predictions/{{game_id}}';
+        var xhReq = new XMLHttpRequest();
+        xhReq.open("GET", url, false);
+        xhReq.send(null);
+        var json_data = JSON.parse(xhReq.responseText);
+
+        if(json_data[0][0].toString().includes("ET")){
+          document.getElementById("game_status").innerHTML = "Game Time: " + json_data[0][0].toString();
+          document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: 50%";
+          document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: 50%";
+        }else{
+          document.getElementById("game_status").innerHTML = "Game Status: " + json_data[0][0].toString();
+          document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: " + json_data[0][7].toString() + "%";
+          document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: " + json_data[0][8].toString() +"%";
+        };
+
+        if(json_data[0][1] == null){
+          document.getElementById("game_time").style.display = "none";
+        }else{
+          document.getElementById("game_time").innerHTML = "Time Remaining: " + json_data[0][1].toString();
+        };
+
+        document.getElementById("game_score").innerHTML = "Score: " + json_data[0][2].toString() + " - " + json_data[0][3].toString();
+        if (json_data[0][1].toString().includes("out")){
+          tableData.push([])
+        }else{
+          tableData.push([ json_data[0][6], json_data[0][7], json_data[0][8]])
+        };
+        setTimeout(drawChart, 10000);
+
+      };
+    </script>
   </body>
 </html>

@@ -78,7 +78,6 @@ def get_json_data():
     for _,g in enumerate(games):
         game_data.append((g["stt"],_,g["cl"],g["v"]["s"],g["h"]["s"],g["v"]["ta"],g["h"]["ta"]))
     json_data = json.dumps(game_data, ensure_ascii=False)
-    print("Job is done!!!")
     print(json_data)
     return json_data
 
@@ -94,36 +93,47 @@ def get_win_percentage(game_id):
     game_data = []
     game_status = game["stt"]
     time_remaining = game["cl"]
-    time_remaining = re.findall(r'[0-9]{1,2}:[0-9]{2}',time_remaining)[0]
-    visitor_score = game["v"]["s"]
-    home_score = game["h"]["s"]
 
-    if game_status == "1st Qtr":
-        time_played = np.round((DT.datetime(1900,1,1,0,12) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "2nd Qtr":
-        time_played = np.round((DT.datetime(1900,1,1,0,24) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "3rd Qtr":
-        time_played = np.round((DT.datetime(1900,1,1,0,36) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "4th Qtr":
-        time_played = np.round((DT.datetime(1900,1,1,0,48) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "OT 1":
-        time_played = np.round((DT.datetime(1900,1,1,0,53) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "OT 2":
-        time_played = np.round((DT.datetime(1900,1,1,0,58) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "OT 3":
-        time_played = np.round((DT.datetime(1900,1,1,1,3) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "OT 4":
-        time_played = np.round((DT.datetime(1900,1,1,1,8) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif game_status == "OT 5":
-        time_played = np.round((DT.datetime(1900,1,1,1,13) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    if game["cl"] is None:
+        time_remaining = "00:00"
     else:
-        time_played = 48
+        time_remaining = re.findall(r'[0-9]{1,2}:[0-9]{2}',time_remaining)[0]
+    visitor_score = int(game["v"]["s"])
+    home_score = int(game["h"]["s"])
+
+    if "1st Qtr" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,0,12) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "2nd Qtr" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,0,24) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "3rd Qtr" in game_status :
+        time_played = np.round((DT.datetime(1900,1,1,0,36) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "4th Qtr" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,0,48) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "OT 1" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,0,53) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "OT 2" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,0,58) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "OT 3" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,1,3) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "OT 4" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,1,8) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif "OT 5" in game_status:
+        time_played = np.round((DT.datetime(1900,1,1,1,13) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    elif game_status == "Halftime":
+        time_played = np.round((DT.datetime(1900,1,1,0,24) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
+    else:
+        time_played = 0
 
     prediction_data = [[time_played, home_score, visitor_score]]
     home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
     visitor_win_percentage = np.round(100-home_win_percentage,2)
 
-    game_data.append((game["stt"],game["cl"],game["v"]["s"],game["h"]["s"],game["v"]["ta"],game["h"]["ta"],home_win_percentage,visitor_win_percentage))
+    minutes_played = re.findall(r'^[0-9]{1,3}',str(time_played))[0]
+    seconds_played = np.round((time_played - float(minutes_played))*60)
+    seconds_played = re.findall(r'^[0-9]{1,2}',str(minutes_played))[0]
+    total_time_played = minutes_played+ ":" + seconds_played
+
+    game_data.append((game["stt"],game["cl"],game["v"]["s"],game["h"]["s"],game["v"]["ta"],game["h"]["ta"],time_played,home_win_percentage,visitor_win_percentage))
     json_data = json.dumps(game_data, ensure_ascii=False)
     print(json_data)
     return json_data
@@ -138,44 +148,23 @@ def result(game_id):
     game = data['gs']['g'][game_id]
     game_status = game["stt"]
     time_remaining = game["cl"]
-    time_remaining = re.findall(r'[0-9]{1,2}:[0-9]{2}',time_remaining)[0]
+    if time_remaining is None:
+        time_remaining = "None"
+    else:
+        time_remaining = re.findall(r'[0-9]{1,2}:[0-9]{2}',time_remaining)[0]
     visitor_score = game["v"]["s"]
     home_score = game["h"]["s"]
     visitor = game["v"]["ta"]
     home = game["h"]["ta"]
+    game_data = []
 
-    return flask.render_template('game_prediction.html', game_status=game_status, time_remaining=time_remaining,
-    visitor_score=visitor_score, home_score=home_score, visitor=visitor, home=home)
+    games = data['gs']['g']
+    for _,g in enumerate(games):
+        game_data.append((g["stt"],_,g["cl"],g["v"]["s"],g["h"]["s"],g["v"]["ta"],g["h"]["ta"]))
 
-# @app.route('/result', methods=['POST'])
-# def result():
-#     if flask.request.method == 'POST':
-#         inputs = flask.request.form
-#         list_tags = inputs.getlist('tags')
-#         print(str(list_tags))
-#         # date = str(inputs['published_date'])
-#         # unix_ts = datetime.datetime.strptime(date, '%Y-%m-%d')
-#         # published_date = int(unix_ts.timestamp())
-#
-#         data = pd.DataFrame([{
-#             'description': inputs['description'],
-#             'duration': inputs['duration'],
-#             'languages': inputs['languages'],
-#             'published_day': inputs['day'],
-#             'published_month': inputs['month'],
-#             'tags': str(list_tags),
-#             'title': inputs['title']
-#         }])
-#
-#         viral = pipe.predict(data)[0]
-#         prob = np.round(pipe.predict_proba(data)[0][1] * 100, decimals=2)
-#
-#         if (viral == 1):
-#             prediction = 'will be'
-#         else:
-#             prediction = 'will not be'
-#
-#         return flask.render_template("results.html", prediction=prediction, prob=prob)
+    return flask.render_template('game_prediction.html', game_id=game_id, game_status=game_status, time_remaining=time_remaining,
+    visitor_score=visitor_score, home_score=home_score, visitor=visitor, home=home, game_data=game_data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
