@@ -5,10 +5,10 @@
     <!-- <meta http-equiv="refresh" content="5" > -->
     <link rel="icon" href="{{url_for('static', filename='images/nba-logoman.svg')}}">
     <title>Live NBA game win probability predictor</title>
-
+​
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-
+​
   <body>
     <nav class="navbar navbar-expand-sm bg-light">
         <ul class="navbar-nav">
@@ -42,30 +42,31 @@
         </div>
       </div>
     <div id="chart_div" style="padding:15px;"></div>
-
-    <form action="/get_demo_results" method="POST">
+​
+    <div>
       <legend>Inputs for predictor</legend>
-
+​
       <div class="form-group">
         <label for="time_played">Time Played</label>
-        <input type="text" for="time_played" name="time_played" class="form-control" placeholder="00:00" required>
+        <input id="time_played" type="text" for="time_played" name="time_played" class="form-control" placeholder="00:00" value="00:00" required>
       </div>
-
+​
       <div class="form-group">
         <label for="home_score">Home Score</label>
-        <input type="number" for="home_score" name="home_score" class="form-control" placeholder="Home Team Score" min="0" max="200" required>
+        <input id="home_score" type="number" for="home_score" name="home_score" class="form-control" placeholder="Home Team Score" min="0" max="200" required>
       </div>
-
+​
       <div class="form-group">
         <label for="visitor_score">Visitor Score</label>
-        <input type="number" for="visitor_score" name="visitor_score" class="form-control" placeholder="Visitor Team Score" min="0" max="200" required>
+        <input id="visitor_score" type="number" for="visitor_score" name="visitor_score" class="form-control" placeholder="Visitor Team Score" min="0" max="200" required>
       </div>
-
+​
         <div class="form-group">
           <button type="reset" class="btn btn-info">Reset inputs</button>
-
-          <button type="submit" class="btn btn-primary">Submit</button>
+​
+          <button class="btn btn-primary" onclick="drawChart()">Submit</button>
         </div>
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -75,8 +76,7 @@
       // for plotting graph
       google.charts.load('current', {'packages':['line']});
       google.charts.setOnLoadCallback(drawChart);
-
-      var tableData = [[0, 50, 50]]
+      var tableData = [[0, 50, 50]];
       function drawChart() {
         var data = new google.visualization.DataTable();
         data.addColumn('number', 'Minutes Played');
@@ -103,37 +103,24 @@
           colors: ['#a52714', '#097138']
         };
         var chart = new google.charts.Line(document.getElementById('chart_div'));
+        var time_played = document.getElementById("time_played").value;
+        console.log(time_played == "00:00");
+        console.log(time_played);
+        if (time_played != "00:00"){
+            var home_score = document.getElementById("home_score").value;
+            var visitor_score = document.getElementById("visitor_score").value;
+            // console.log(time_played);
+            var url = '/get_demo_results?' + 'time_played=' + time_played.toString() + '&home_score=' + home_score.toString() + '&visitor_score=' + visitor_score.toString();
+            var xhReq = new XMLHttpRequest();
+            xhReq.open("GET", url, false);
+            xhReq.send(null);
+            var json_data = JSON.parse(xhReq.responseText);
+            console.log(json_data);
+            document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: " + json_data[0][1].toString() + "%";
+            document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: " + json_data[0][2].toString() +"%";
+            tableData.push([ json_data[0][0], json_data[0][1], json_data[0][2]]);
+          };
         chart.draw(data, options);
-        var url = '/get_predictions/{{game_id}}';
-        var xhReq = new XMLHttpRequest();
-        xhReq.open("GET", url, false);
-        xhReq.send(null);
-        var json_data = JSON.parse(xhReq.responseText);
-
-        if(json_data[0][0].toString().includes("ET")){
-          document.getElementById("game_status").innerHTML = "Game Time: " + json_data[0][0].toString();
-          document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: 50%";
-          document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: 50%";
-        }else{
-          document.getElementById("game_status").innerHTML = "Game Status: " + json_data[0][0].toString();
-          document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: " + json_data[0][7].toString() + "%";
-          document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: " + json_data[0][8].toString() +"%";
-        };
-
-        if(json_data[0][1] == null){
-          document.getElementById("game_time").style.display = "none";
-        }else{
-          document.getElementById("game_time").innerHTML = "Time Remaining: " + json_data[0][1].toString();
-        };
-
-        document.getElementById("game_score").innerHTML = "Score: " + json_data[0][2].toString() + " - " + json_data[0][3].toString();
-        if (json_data[0][1].toString().includes("out")){
-          tableData.push([])
-        }else{
-          tableData.push([ json_data[0][6], json_data[0][7], json_data[0][8]])
-        };
-        setTimeout(drawChart, 10000);
-
       };
     </script>
   </body>

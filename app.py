@@ -168,20 +168,40 @@ def result(game_id):
 # Demo page
 @app.route('/demo')
 def demo():
-    return flask.render_template('demo.html')
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+    response = requests.get(url)
+    data = response.json()
+    games = data['gs']['g']
+    game = data['gs']['g'][0]
+    game_status = game["stt"]
+    time_remaining = game["cl"]
+    if time_remaining is None:
+        time_remaining = "None"
+    else:
+        time_remaining = re.findall(r'[0-9]{1,2}:[0-9]{2}',time_remaining)[0]
+    visitor_score = game["v"]["s"]
+    home_score = game["h"]["s"]
+    visitor = game["v"]["ta"]
+    home = game["h"]["ta"]
+    game_data = []
+    for _,g in enumerate(games):
+        game_data.append((g["stt"],_,g["cl"],g["v"]["s"],g["h"]["s"],g["v"]["ta"],g["h"]["ta"]))
+    return flask.render_template('demo.html', game_data=game_data, game_status=game_status, time_remaining=time_remaining, visitor_score=visitor_score, home_score=home_score, visitor=visitor,
+    home=home)
 
 @app.route('/get_demo_results', methods=['GET'])
 def get_demo_results():
     if flask.request.method == 'GET':
-        inputs = flask.request.form
-        time_played = inputs['time_played']
-        home_score = inputs['home_score']
-        visitor_score = inputs['visitor_score']
+        inputs = flask.request.args
+        time_played = inputs.get('time_played')
+        home_score = inputs.get('home_score')
+        visitor_score = inputs.get('visitor_score')
         game_data = []
-        print(inputs)
-        time_played = '12:00'
-        time_played = (DT.datetime.strptime(time_played,'%M:%S')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
-        prediction_data = [[time_played, home_score, visitor_score]]
+        if ":" not in time_played:
+                time_played = (DT.datetime.strptime(time_played,'%M')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
+        else:
+            time_played = (DT.datetime.strptime(time_played,'%M:%S')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
+        prediction_data = [[time_played, int(home_score), int(visitor_score)]]
         home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
         visitor_win_percentage = np.round(100-home_win_percentage,2)
         game_data.append((time_played, home_win_percentage,visitor_win_percentage))
