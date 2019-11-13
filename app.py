@@ -165,6 +165,28 @@ def result(game_id):
     return flask.render_template('game_prediction.html', game_id=game_id, game_status=game_status, time_remaining=time_remaining,
     visitor_score=visitor_score, home_score=home_score, visitor=visitor, home=home, game_data=game_data)
 
+# Demo page
+@app.route('/demo')
+def demo():
+    return flask.render_template('demo.html')
+
+@app.route('/get_demo_results', methods=['GET'])
+def get_demo_results():
+    if flask.request.method == 'GET':
+        inputs = flask.request.form
+        time_played = inputs['time_played']
+        home_score = inputs['home_score']
+        visitor_score = inputs['visitor_score']
+        game_data = []
+        print(inputs)
+        time_played = '12:00'
+        time_played = (DT.datetime.strptime(time_played,'%M:%S')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
+        prediction_data = [[time_played, home_score, visitor_score]]
+        home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
+        visitor_win_percentage = np.round(100-home_win_percentage,2)
+        game_data.append((time_played, home_win_percentage,visitor_win_percentage))
+        json_data = json.dumps(game_data, ensure_ascii=False)
+        return json_data
 
 if __name__ == '__main__':
     app.run(debug=True)

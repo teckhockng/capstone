@@ -42,6 +42,30 @@
         </div>
       </div>
     <div id="chart_div" style="padding:15px;"></div>
+
+    <form action="/get_demo_results" method="POST">
+      <legend>Inputs for predictor</legend>
+
+      <div class="form-group">
+        <label for="time_played">Time Played</label>
+        <input type="text" for="time_played" name="time_played" class="form-control" placeholder="00:00" required>
+      </div>
+
+      <div class="form-group">
+        <label for="home_score">Home Score</label>
+        <input type="number" for="home_score" name="home_score" class="form-control" placeholder="Home Team Score" min="0" max="200" required>
+      </div>
+
+      <div class="form-group">
+        <label for="visitor_score">Visitor Score</label>
+        <input type="number" for="visitor_score" name="visitor_score" class="form-control" placeholder="Visitor Team Score" min="0" max="200" required>
+      </div>
+
+        <div class="form-group">
+          <button type="reset" class="btn btn-info">Reset inputs</button>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

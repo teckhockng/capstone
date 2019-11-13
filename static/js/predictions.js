@@ -1,47 +1,16 @@
-function update_data(){
-     var url = '/get_predictions/{{game_id}}';
-     var xhReq = new XMLHttpRequest();
-     xhReq.open("GET", url, false);
-     xhReq.send(null);
-     var data = JSON.parse(xhReq.responseText);
-     console.log(url);
-     console.log(data);
-
-    if(data[0][0].toString().includes("ET")){
-      document.getElementById("game_status").innerHTML = "Game Time: " + data[0][0].toString();
-      document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percetage: 50%";
-      document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percetage: 50%";
-    }else{
-      document.getElementById("game_status").innerHTML = "Game Status: " + data[0][0].toString();
-      document.getElementById("home_win_percentage").innerHTML = "{{home}}" + "Win Percetage: " + data[0][7].toString();
-      document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + "Win Percetage: 50%" + data[0][8].toString();
-    };
-
-    if(data[0][1] == null){
-      document.getElementById("game_time").style.display = "none";
-    }else{
-      document.getElementById("game_time").innerHTML = "Time Remaining: " + data[1].toString();
-    };
-
-
-    document.getElementById("game_score").innerHTML = "Score: " + data[0][2].toString() + " - " + data[0][3].toString();
-     // setTimeout(update_data, 10000);
-};
-
-update_data();
-
 // for plotting graph
 google.charts.load('current', {'packages':['line']});
 google.charts.setOnLoadCallback(drawChart);
+
+var tableData = [[0, 50, 50]]
 function drawChart() {
   var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Minutes Played');
+  data.addColumn('number', 'Minutes Played');
   data.addColumn('number', '{{ home }} Win Probability');
   data.addColumn('number', '{{ visitor }} Win Probability');
-  data.addRows([
-    //in this format ["string", num, num]
-    ["00:00", 0, 0]
-  ]);
+  data.addRows(
+    tableData
+  );
   var options = {
     chart: {
       title: '{{ home }} vs {{ visitor }}',
@@ -61,5 +30,34 @@ function drawChart() {
   };
   var chart = new google.charts.Line(document.getElementById('chart_div'));
   chart.draw(data, options);
-  data.addRows([["80:00", 90, 85]]);
-}
+  var url = '/get_predictions/{{game_id}}';
+  var xhReq = new XMLHttpRequest();
+  xhReq.open("GET", url, false);
+  xhReq.send(null);
+  var json_data = JSON.parse(xhReq.responseText);
+
+  if(json_data[0][0].toString().includes("ET")){
+    document.getElementById("game_status").innerHTML = "Game Time: " + json_data[0][0].toString();
+    document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: 50%";
+    document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: 50%";
+  }else{
+    document.getElementById("game_status").innerHTML = "Game Status: " + json_data[0][0].toString();
+    document.getElementById("home_win_percentage").innerHTML = "{{home}}" + " Win Percentage: " + json_data[0][7].toString() + "%";
+    document.getElementById("visitor_win_percentage").innerHTML = "{{visitor}}" + " Win Percentage: " + json_data[0][8].toString() +"%";
+  };
+
+  if(json_data[0][1] == null){
+    document.getElementById("game_time").style.display = "none";
+  }else{
+    document.getElementById("game_time").innerHTML = "Time Remaining: " + json_data[0][1].toString();
+  };
+
+  document.getElementById("game_score").innerHTML = "Score: " + json_data[0][2].toString() + " - " + json_data[0][3].toString();
+  if (json_data[0][1].toString().includes("out")){
+    tableData.push([])
+  }else{
+    tableData.push([ json_data[0][6], json_data[0][7], json_data[0][8]])
+  };
+  setTimeout(drawChart, 10000);
+
+};
