@@ -203,7 +203,7 @@ def get_demo_results():
                 time_played = (DT.datetime.strptime(time_played,'%M')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
         else:
             time_played = (DT.datetime.strptime(time_played,'%M:%S')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
-        prediction_data = [[time_played, int(home_score), int(visitor_score)]]
+        prediction_data = [time_played, int(home_score), int(visitor_score)]
         home_win_percentage = np.round(model.predict_proba([prediction_data])[0][0]*100,2)
         visitor_win_percentage = np.round(100-home_win_percentage,2)
         game_data.append((time_played, home_win_percentage,visitor_win_percentage))
