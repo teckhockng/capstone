@@ -3,10 +3,11 @@ import pandas as pd
 import numpy as np
 import datetime as DT
 import requests
-from tensorflow.keras.models import load_model
+# from tensorflow.keras.models import load_model
 import json
 import time
 import re
+import pickle
 # from celery import Celery
 
 app = flask.Flask(__name__)
@@ -19,7 +20,8 @@ app = flask.Flask(__name__)
 # celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 # celery.conf.update(app.config)
 
-model = load_model('model.h5')
+model = pickle.load(open("logreg.pkl", "rb"))
+# model = load_model('/home/nthock/Documents/capstone/model.h5')
 
 # @celery.task(bind=True)
 # def get_json_data(self):
@@ -124,8 +126,8 @@ def get_win_percentage(game_id):
     else:
         time_played = 0
 
-    prediction_data = [[time_played, home_score, visitor_score]]
-    home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
+    prediction_data = [time_played, home_score, visitor_score]
+    home_win_percentage = np.round(model.predict_proba([prediction_data])[0][0]*100,2)
     visitor_win_percentage = np.round(100-home_win_percentage,2)
 
     minutes_played = re.findall(r'^[0-9]{1,3}',str(time_played))[0]
@@ -202,11 +204,11 @@ def get_demo_results():
         else:
             time_played = (DT.datetime.strptime(time_played,'%M:%S')- DT.datetime(1900,1,1,0,0)).total_seconds()/60
         prediction_data = [[time_played, int(home_score), int(visitor_score)]]
-        home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
+        home_win_percentage = np.round(model.predict_proba([prediction_data])[0][0]*100,2)
         visitor_win_percentage = np.round(100-home_win_percentage,2)
         game_data.append((time_played, home_win_percentage,visitor_win_percentage))
         json_data = json.dumps(game_data, ensure_ascii=False)
         return json_data
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
