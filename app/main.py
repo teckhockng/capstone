@@ -111,15 +111,15 @@ def get_win_percentage(game_id):
         time_played = np.round((DT.datetime(1900,1,1,0,36) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
     elif "4th Qtr" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,0,48) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif "OT 1" in game_status:
+    elif "1st OT" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,0,53) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif "OT 2" in game_status:
+    elif "2nd OT" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,0,58) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif "OT 3" in game_status:
+    elif "3rd OT" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,1,3) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif "OT 4" in game_status:
+    elif "4th OT" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,1,8) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
-    elif "OT 5" in game_status:
+    elif "5th OT" in game_status:
         time_played = np.round((DT.datetime(1900,1,1,1,13) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
     elif game_status == "Halftime":
         time_played = np.round((DT.datetime(1900,1,1,0,24) - DT.datetime.strptime(time_remaining,'%M:%S')).total_seconds()/60,2)
