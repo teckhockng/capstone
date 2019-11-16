@@ -21,7 +21,7 @@ app = flask.Flask(__name__)
 # celery.conf.update(app.config)
 
 # model = pickle.load(open("logreg.pkl", "rb"))
-model = load_model('model.h5')
+model = load_model('model/model.h5')
 
 # @celery.task(bind=True)
 # def get_json_data(self):
