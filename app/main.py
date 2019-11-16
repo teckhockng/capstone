@@ -129,6 +129,7 @@ def get_win_percentage(game_id):
     # prediction_data = [time_played, home_score, visitor_score]
     # home_win_percentage = np.round(model.predict_proba([prediction_data])[0][0]*100,2)
     prediction_data = [[time_played, int(home_score), int(visitor_score)]]
+    print(prediction_data)
     home_win_percentage = np.round(model.predict(prediction_data)[0][0]*100,2)
     visitor_win_percentage = np.round(100-home_win_percentage,2)
 
