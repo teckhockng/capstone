@@ -21,7 +21,7 @@ app = flask.Flask(__name__)
 # celery.conf.update(app.config)
 
 # model = pickle.load(open("logreg.pkl", "rb"))
-model = load_model('model/model.h5')
+model = load_model('model.h5')
 
 # @celery.task(bind=True)
 # def get_json_data(self):
@@ -215,4 +215,5 @@ def result(game_id):
 #         return json_data
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(debug=True)
+    # app.run(host='0.0.0.0', port=80)
