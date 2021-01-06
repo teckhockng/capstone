@@ -1,0 +1,142 @@
+2019-11-16 23:27:36.971147: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-11-16 23:27:36.977697: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2199995000 Hz
+2019-11-16 23:27:36.977937: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55f03350c090 executing computations on platform Host. Devices:
+2019-11-16 23:27:36.977973: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+2019-11-16 23:27:40.199556: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-11-16 23:27:40.205761: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2199995000 Hz
+2019-11-16 23:27:40.205967: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55cee4e8bd80 executing computations on platform Host. Devices:
+2019-11-16 23:27:40.206002: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+ * Debugger is active!
+ * Debugger PIN: 643-366-677
+99.227.204.250 - - [16/Nov/2019 23:28:04] "[37mGET / HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:04] "[37mGET /get_data HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:06] "[37mGET /results/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:06] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:17] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:18] "[37mGET /results/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:18] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:26] "[37mGET / HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:26] "[37mGET /get_data HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:30] "[37mGET / HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:30] "[37mGET /get_data HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:33] "[37mGET /results/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:33] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:44] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:28:54] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:05] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:15] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:25] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:36] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:46] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:29:57] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:30:07] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:30:18] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:30:28] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:30:39] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:30:49] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:00] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:10] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:20] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:31] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET / HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/js/app.js HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/BKN_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/MIL_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/IND_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/CHI_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/CHA_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/ATL_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /get_data HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/POR_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/DAL_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/SAS_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/MIA_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/NYK_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/MIN_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/HOU_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/LAC_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/NOP_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:36] "[37mGET /static/images/TOR_logo.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:37] "[37mGET /static/images/nba-logoman.svg HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:41] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:44] "[37mGET /results/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:44] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:52] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:31:55] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:02] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:05] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:13] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:16] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:23] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:26] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:34] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:36] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:44] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:47] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:54] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:32:57] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:05] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:08] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:15] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:18] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:26] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:28] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:36] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:39] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:47] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:49] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:57] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:33:59] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:08] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:09] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:18] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:20] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:29] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:30] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:39] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:40] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:49] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:34:51] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:00] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:01] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:10] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:12] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:21] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:22] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:31] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:32] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:42] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:43] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:52] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:35:53] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:02] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:04] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:13] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:14] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:23] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:25] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:33] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:35] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:44] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:46] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:54] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:36:56] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:05] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:07] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:18] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:28] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:38] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:48] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:37:59] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:38:09] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:38:20] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:38:30] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:38:41] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -
+99.227.204.250 - - [16/Nov/2019 23:38:51] "[37mGET /get_predictions/0 HTTP/1.1[0m" 200 -

@@ -26,7 +26,7 @@ model = load_model('model/model.h5')
 # @celery.task(bind=True)
 # def get_json_data(self):
 #     # get the data from nba's json
-#     url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+#     url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
 #     response = requests.get(url)
 #     data = response.json()
 #     #Store the data for each game into a variable
@@ -51,7 +51,7 @@ def home():
                  'MEM','MIA','MIL','MIN','NOP','NYK','OKC','ORL','PHI','PHX','POR','SAC','SAS','TOR','UTA','WAS']
 
     # get the data from nba's json
-    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
     response = requests.get(url)
     data = response.json()
     #Store the data for each game into a variable
@@ -71,7 +71,7 @@ def home():
 @app.route('/get_data', methods=['GET'])
 def get_json_data():
     # get the data from nba's json
-    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
     response = requests.get(url)
     data = response.json()
     #Store the data for each game into a variable
@@ -87,7 +87,7 @@ def get_json_data():
 @app.route('/get_predictions/<int:game_id>', methods=['GET'])
 def get_win_percentage(game_id):
     # get the data from nba's json
-    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
     response = requests.get(url)
     data = response.json()
     #Store the data for each game into a variable
@@ -146,7 +146,7 @@ def get_win_percentage(game_id):
 # Prediction page
 @app.route('/results/<int:game_id>')
 def result(game_id):
-    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
     response = requests.get(url)
     data = response.json()
     #Store the data for each game into a variable
@@ -173,7 +173,7 @@ def result(game_id):
 # Demo page
 # @app.route('/demo')
 # def demo():
-#     url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
+#     url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
 #     response = requests.get(url)
 #     data = response.json()
 #     games = data['gs']['g']
