@@ -1,3 +1,4 @@
+# Tensorflow model doesn't work with this image
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
 COPY ./app /app
