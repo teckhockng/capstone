@@ -51,7 +51,7 @@ def home():
                  'MEM','MIA','MIL','MIN','NOP','NYK','OKC','ORL','PHI','PHX','POR','SAC','SAS','TOR','UTA','WAS']
 
     # get the data from nba's json
-    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2020/scores/00_todays_scores.json'
+    url = 'https://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2022/scores/00_todays_scores.json'
     response = requests.get(url)
     data = response.json()
     #Store the data for each game into a variable
